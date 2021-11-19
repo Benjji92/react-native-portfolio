@@ -16,6 +16,7 @@ import {
   Rows,
   Col,
 } from 'react-native-table-component';
+import { Button } from 'react-native-paper';
 
 const image = require('./images/hatter.jpg');
 
