@@ -9,6 +9,13 @@ import {
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Rows,
+  Col,
+} from 'react-native-table-component';
 
 const image = require('./images/hatter.jpg');
 
@@ -79,6 +86,12 @@ const styles = StyleSheet.create({
     opacity: 50,
     selectionColor: '#000000',
   },
+  head: {height: 40},
+  tableText: {textAlign: 'center', color: '#dabb68'},
+  wrapper: {flexDirection: 'row'},
+  tableTitle: {flex: 1},
+  row: {height: 28},
+  border: {backgroundColor: 'rgba(0,0,0,.8)'},
 });
 
 function HomeScreen({navigation}) {
@@ -201,14 +214,53 @@ function ContactScreen() {
   );
 }
 
+const CONTENT = {
+  tableHead: ['Órák', 'Egyéni', 'Csoportos'],
+  tableTitle: ['60 perc', '90 perc', '5x60 perc'],
+  tableData: [
+    ['1', '2'],
+    ['a', 'b'],
+    ['1', '2'],
+    ['a', 'b'],
+  ],
+};
+
 function PriceScreen() {
   return (
-    <View style={styles.container}>
+    /*<View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <Text style={styles.text}>
           Árlista 60 perc 90 perc 5x60 perces bérlet Egyéni 4.000ft 6.000ft
           16.000ft Csoportos 3.000ft 4.500ft 12.000ft
         </Text>
+      </ImageBackground>
+    </View>*/
+    <View style={styles.container}>
+      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+        <Table
+          borderStyle={{borderWidth: 1, borderColor: '#dabb68'}}
+          style={styles.border}>
+          <Row
+            data={CONTENT.tableHead}
+            flexArr={[1, 2, 2]}
+            style={styles.head}
+            textStyle={styles.tableText}
+          />
+          <TableWrapper style={styles.wrapper}>
+            <Col
+              data={CONTENT.tableTitle}
+              style={styles.tableTitle}
+              heightArr={[28, 28]}
+              textStyle={styles.tableText}
+            />
+            <Rows
+              data={CONTENT.tableData}
+              flexArr={[2, 2]}
+              style={styles.row}
+              textStyle={styles.tableText}
+            />
+          </TableWrapper>
+        </Table>
       </ImageBackground>
     </View>
   );
