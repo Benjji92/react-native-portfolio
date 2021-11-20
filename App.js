@@ -16,7 +16,6 @@ import {
   Rows,
   Col,
 } from 'react-native-table-component';
-import { Button } from 'react-native-paper';
 
 const image = require('./images/hatter.jpg');
 
@@ -25,6 +24,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-evenly',
     flexDirection: 'column',
+  },
+  priceContainer: {
+    flex: 3,
+    justifyContent: 'flex-start',
   },
   title: {
     marginTop: 16,
@@ -47,16 +50,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,.8)',
     fontSize: 20,
   },
-  text2: {
+  priceText: {
     flex: 1,
-    marginTop: 250,
-    marginBottom: 180,
-    alignItems: 'center',
-    justifyContent: 'center',
     color: '#dabb68',
     padding: 20,
     backgroundColor: 'rgba(0,0,0,.8)',
     fontSize: 20,
+  },
+  contactText: {
+    flex: 1,
+    marginTop: 270,
+    marginBottom: 160,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#dabb68',
+    padding: 20,
+    fontSize: 20,
+    backgroundColor: 'rgba(0,0,0,.8)',
   },
   image: {
     flex: 1,
@@ -99,31 +109,33 @@ function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <View style={styles.buttons}>
-          <TouchableOpacity
-            style={styles.buttonBackground}
-            onPress={() => navigation.navigate('Rólam')}>
-            <Text style={styles.buttonText}>Rólam</Text>
-          </TouchableOpacity>
+        <ScrollView>
+          <View style={styles.buttons}>
+            <TouchableOpacity
+              style={styles.buttonBackground}
+              onPress={() => navigation.navigate('Rólam')}>
+              <Text style={styles.buttonText}>Rólam</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.buttonBackground}
-            onPress={() => navigation.navigate('Oktatás')}>
-            <Text style={styles.buttonText}>Oktatás</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonBackground}
+              onPress={() => navigation.navigate('Oktatás')}>
+              <Text style={styles.buttonText}>Oktatás</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.buttonBackground}
-            onPress={() => navigation.navigate('Kapcsolat')}>
-            <Text style={styles.buttonText}>Kapcsolat</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonBackground}
+              onPress={() => navigation.navigate('Kapcsolat')}>
+              <Text style={styles.buttonText}>Kapcsolat</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.buttonBackground}
-            onPress={() => navigation.navigate('Árlista')}>
-            <Text style={styles.buttonText}>Árlista</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              style={styles.buttonBackground}
+              onPress={() => navigation.navigate('Árlista')}>
+              <Text style={styles.buttonText}>Árlista</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </ImageBackground>
     </View>
   );
@@ -204,12 +216,14 @@ function ContactScreen() {
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Text style={styles.text2}>
-          &emsp;Ha úgy érzed, hogy szeretnél meghívni egy fellépésre, vagy nálam
-          tanulnál; keress az alábbi elérhetőségek egyikén!
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Telefonszám:
-          +3620 382 2677 &emsp;&emsp;&emsp;Email cím: antalimola92@gmail.com
-        </Text>
+        <ScrollView>
+          <Text style={styles.contactText}>
+            &emsp;Ha úgy érzed, hogy szeretnél meghívni egy fellépésre, vagy
+            nálam tanulnál; keress az alábbi elérhetőségek egyikén! {'\n'}
+            {'\n'}Telefonszám: +3620 382 2677 {'\n'}Email cím:
+            antalimola92@gmail.com
+          </Text>
+        </ScrollView>
       </ImageBackground>
     </View>
   );
@@ -217,12 +231,21 @@ function ContactScreen() {
 
 const CONTENT = {
   tableHead: ['Órák', 'Egyéni', 'Csoportos'],
-  tableTitle: ['60 perc', '90 perc', '5x60 perc'],
+  tableTitle: [
+    '5x60 perc',
+    '5x90 perc',
+    '10x60 perc',
+    '10x90 perc',
+    '20x60 perc',
+    '20x90 perc',
+  ],
   tableData: [
-    ['1', '2'],
-    ['a', 'b'],
-    ['1', '2'],
-    ['a', 'b'],
+    ['16 000 Ft', '12 000 Ft/fő'],
+    ['23 500 Ft', '17 500 Ft/fő'],
+    ['27 000 Ft', '20 000 Ft/fő'],
+    ['39 000 Ft', '29 000 Ft/fő'],
+    ['45 000 Ft', ''],
+    ['64 000 Ft', ''],
   ],
 };
 
@@ -236,32 +259,50 @@ function PriceScreen() {
         </Text>
       </ImageBackground>
     </View>*/
-    <View style={styles.container}>
+    <View style={styles.priceContainer}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Table
-          borderStyle={{borderWidth: 1, borderColor: '#dabb68'}}
-          style={styles.border}>
-          <Row
-            data={CONTENT.tableHead}
-            flexArr={[1, 2, 2]}
-            style={styles.head}
-            textStyle={styles.tableText}
-          />
-          <TableWrapper style={styles.wrapper}>
-            <Col
-              data={CONTENT.tableTitle}
-              style={styles.tableTitle}
-              heightArr={[28, 28]}
+        <ScrollView>
+          <Text style={styles.priceText}>
+            &emsp;Az egyéni órák díjazásában 60- és 90 perces verziókat
+            különböztetek meg. Az előbbire 4000 Ft, az utóbbira 6000 Ft
+            honoráriumot számolok fel. Amennyiben egy órára többen jelentkeznek,
+            azaz kifejezetten duettben, tercettben, vagy „a capella”
+            együttesként énekelnének, így a 60 perces óra ára 3000 Ft, a 90-é
+            4500 Ft lesz egyénenként. Lehetőség lesz nálam bérlet díjfizetésére:{' '}
+            {'\n'} {'\n'}
+            Bérlet árlista:
+          </Text>
+          <Table
+            borderStyle={{borderWidth: 3, borderColor: '#dabb68'}}
+            style={styles.border}>
+            <Row
+              data={CONTENT.tableHead}
+              flexArr={[1, 2, 2]}
+              style={styles.head}
               textStyle={styles.tableText}
             />
-            <Rows
-              data={CONTENT.tableData}
-              flexArr={[2, 2]}
-              style={styles.row}
-              textStyle={styles.tableText}
-            />
-          </TableWrapper>
-        </Table>
+            <TableWrapper style={styles.wrapper}>
+              <Col
+                data={CONTENT.tableTitle}
+                style={styles.tableTitle}
+                heightArr={[28, 28]}
+                textStyle={styles.tableText}
+              />
+              <Rows
+                data={CONTENT.tableData}
+                flexArr={[2, 2]}
+                style={styles.row}
+                textStyle={styles.tableText}
+              />
+            </TableWrapper>
+          </Table>
+          <Text style={styles.priceText}>
+            &emsp;Ezek az összegek 10 km-nél távolabbi kiszállás és
+            túljelentkezés esetén emelkednek. Az általam 2021 második felében
+            indított kórus heti gyakoriságú 90 perces foglalkozás lesz, melynek
+            jelképes összege havi 1000Ft lesz.
+          </Text>
+        </ScrollView>
       </ImageBackground>
     </View>
   );
